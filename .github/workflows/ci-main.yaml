@@ -1,19 +1,20 @@
-name: CI for Auth Microservice
+name: CI for Content Microservice
 
 on:
   push:
     paths:
-      - 'auth-service/**' 
-  pull_request:  
+      - 'content-service/**'
+  pull_request:
     paths:
-        - 'auth-service/**'
+      - 'content-service/**'
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
     defaults:
       run:
-        working-directory: ./auth-service
+        working-directory: ./content-service
 
     steps:
       - name: 📥 Checkout repository
@@ -31,11 +32,11 @@ jobs:
         run: npm test
 
       - name: 🐳 Build Docker image
-        run: docker build -t auth-service .
+        run: docker build -t content-service .
 
       # Optional: Push to DockerHub
       # - name: 🔐 Login to DockerHub
       #   run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       # - name: ⬆️ Push Docker image
-      #   run: docker tag auth-service yourdockerhubusername/auth-service:latest && docker push yourdockerhubusername/auth-service:latest
+      #   run: docker tag content-service yourdockerhubusername/content-service:latest && docker push yourdockerhubusername/content-service:latest
