@@ -12,7 +12,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./auth
+        working-directory: ./auth-service
 
     steps:
       - name: 📥 Checkout repository
