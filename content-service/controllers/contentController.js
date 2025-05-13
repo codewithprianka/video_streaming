@@ -60,6 +60,8 @@ const getContentById=async(req,res)=>{
     return res.status(200).json({message:"Content found",response});
 }
 
+
+
 module.exports = {
     addContent,
     getContent,
