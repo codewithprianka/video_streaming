@@ -3,10 +3,8 @@ name: CI for Auth Microservice
 on:
   push:
     paths:
-      - 'auth/**'
   pull_request:
     paths:
-      - 'auth/**'
 
 jobs:
   build-and-test:
