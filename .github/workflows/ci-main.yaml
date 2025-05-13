@@ -1,4 +1,4 @@
-cename: CI for Content Microservice
+name: CI for Content Microservice
 
 on:
   push:
