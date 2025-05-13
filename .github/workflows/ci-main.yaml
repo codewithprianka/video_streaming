@@ -1,12 +1,12 @@
-name: CI for Content Microservice
+cename: CI for Content Microservice
 
 on:
   push:
     paths:
-      - 'content/**'
+      - 'content-service/**'
   pull_request:
     paths:
-      - 'content/**'
+      - 'content-service/**'
 
 jobs:
   build-and-test:
@@ -14,7 +14,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./content
+        working-directory: ./content-service
 
     steps:
       - name: 📥 Checkout repository
