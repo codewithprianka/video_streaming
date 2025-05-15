@@ -1,26 +1,38 @@
-version: "3"
-
 services:
   auth-service:
     build: ./auth-service
-    ports:
-      - "8000:8000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/video_streaming_ms
+    depends_on:
+      - mongo
     networks:
       - micro-net
 
   content-service:
     build: ./content-service
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/video_streaming_ms
+    depends_on:
+      - mongo
+    networks:
+      - micro-net
+
+  mongo:
+    image: mongo:6
+    container_name: mongo
     ports:
-      - "8001:8001"
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
     networks:
       - micro-net
 
   nginx:
     image: nginx:latest
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     ports:
       - "8080:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - auth-service
       - content-service
@@ -29,3 +41,6 @@ services:
 
 networks:
   micro-net:
+
+volumes:
+  mongo-data:
