@@ -2,3 +2,5 @@
 
 storage/videos/
 storage/images/
+
+**/config.env

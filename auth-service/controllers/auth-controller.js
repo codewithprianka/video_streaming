@@ -68,7 +68,9 @@ const getUserProfile=async(req,res)=>{
 }
 const validateUser=async(req,res)=>{
     try{
-        const user=await User.findById(req.params.id);
+        console.log(req.query.did, "nice");
+        const user=await User.findById(req.query.did);
+        console.log(user, "this is user");
         if(!user){
             return res.status(404).json({message:"User not found"});
         }

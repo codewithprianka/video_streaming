@@ -4,13 +4,18 @@ const authController = require('../controllers/auth-controller');
 const authMiddleware = require('../middleware/auth-middleware');
 const { registerUser, loginUser, getUserProfile,validateUser } = authController;
 
+Route.post("/validateUser", (req, res, next) => {
+    console.log("Route hit, ID:", req.query.id);
+    next();
+}, validateUser);
 // Register route
 Route.route('/register').post( registerUser);
 // Login route
 Route.route('/login').post(loginUser);
+
 // Get user profile route
 Route.route('/profile').get(authMiddleware, getUserProfile);
-Route.route('/validate/:id').post(validateUser);
+
 // Middleware to protect routes
 
 // Export the router

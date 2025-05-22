@@ -2,8 +2,6 @@ const Content=require("../models/content_model");
 
 const addContent = async (req, res) => {
     try{
-        console.log(req.user);
-
         const isAdmin=req.user.role==="admin";
         if(!isAdmin){
             return res.status(403).json({message:"Access denied"});
@@ -60,10 +58,31 @@ const getContentById=async(req,res)=>{
     return res.status(200).json({message:"Content found",response});
 }
 
+<<<<<<< HEAD
 
+=======
+const watchVideo=async(req,res)=>{
+    const {subscription}=req.user;
+    try{
+        if(!subscription){
+            return res.status(403).json({message:"You need to subscribe to watch this video"});
+        }
+        const {id}=req.params;
+        const content=await Content.findById(id);
+        res.status(200).json({message:"Video found",content});
+        if(!content){
+            return res.status(404).json({message:"Content not found"});
+        }
+        return res.status(200).json({message:"Content found",content});
+    }catch(error){
+        console.error(error);
+        return res.status(500).json({message:"Internal server error"});
+    }}
+>>>>>>> master
 
 module.exports = {
     addContent,
     getContent,
-    getContentById
+    getContentById,
+    watchVideo
 }

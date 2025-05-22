@@ -1,5 +1,7 @@
 const jwt=require("jsonwebtoken");
 const User=require("../models/user_model");
+const dotenv=require("dotenv");
+dotenv.config({path:"../config.env"});
 
 
 const authMiddleware=async(req,res,next)=>{
@@ -7,16 +9,16 @@ const authMiddleware=async(req,res,next)=>{
     if(token && token.startsWith("Bearer")){
         token=token.split(" ")[1];
     }
-    console.log(token);
+  
     if(!token){
         return res.status(401).json({message:"Unauthorized"});
     }
     try {
-        const decoded=jwt.verify(token,process.env.JWT_SECRET);
+        const decoded=await jwt.verify(token,process.env.JWT_SECRET);
         req.user=await User.findById(decoded.id);
         next();
     } catch (error) {
-        return res.status(401).json({message:"Unauthorized"});
+        return res.status(401).json({message:"Unauthorized",error:error.message});
     }
 }
 
